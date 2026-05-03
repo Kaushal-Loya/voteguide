@@ -54,24 +54,24 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 w-full max-w-2xl mx-auto">
-      <div className="w-full relative z-10 rounded-3xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-glass p-8 sm:p-12 mb-8">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-md shadow-indigo-500/30 mb-6">
-            <span className="text-3xl font-bold text-white tracking-tighter">VG</span>
+    <div className="flex flex-col items-center justify-center p-4 w-full max-w-xl mx-auto">
+      <div className="w-full relative z-10 rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-glass p-6 sm:p-10 mb-6">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-md shadow-indigo-500/30 mb-5">
+            <span className="text-2xl font-bold text-white tracking-tighter">VG</span>
           </div>
-          <h1 className="text-4xl font-bold text-slate-800 tracking-tight">Create Your Profile</h1>
-          <p className="text-lg text-slate-500 mt-2">Just a few details to personalize your voting experience.</p>
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Create Your Profile</h1>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Just a few details to personalize your voting experience.</p>
         </div>
 
         <div className="relative">
           {/* Progress Indicators */}
-          <div className="flex justify-center gap-3 mb-10">
+          <div className="flex justify-center gap-2 mb-8">
             {[1, 2, 3].map((s) => (
               <div 
                 key={s} 
-                className={`h-2 rounded-full transition-all duration-500 ${
-                  s === step ? 'w-12 bg-indigo-600' : s < step ? 'w-8 bg-indigo-300' : 'w-8 bg-zinc-200'
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  s === step ? 'w-10 bg-indigo-600' : s < step ? 'w-6 bg-indigo-300' : 'w-6 bg-zinc-200'
                 }`}
               />
             ))}
@@ -80,20 +80,20 @@ export default function Onboarding() {
           <div className="min-h-[320px] flex flex-col justify-center relative">
             <AnimatePresence mode="wait">
               {step === 1 && (
-                <motion.div key="step1" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="space-y-8">
-                  <div className="flex items-center gap-4 bg-indigo-50/50 rounded-2xl border border-indigo-100/50 p-5 mb-6">
-                    <User className="w-8 h-8 text-indigo-600" />
-                    <h2 className="text-2xl font-semibold text-slate-800">Basic Info</h2>
+                <motion.div key="step1" variants={slideVariants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+                  <div className="flex items-center gap-3 bg-indigo-50/50 rounded-xl border border-indigo-100/50 p-4 mb-4">
+                    <User className="w-6 h-6 text-indigo-600" />
+                    <h2 className="text-xl font-semibold text-slate-800">Basic Info</h2>
                   </div>
-                  <div className="space-y-4">
-                    <label className="block text-lg font-medium text-slate-700">How old are you?</label>
+                  <div className="space-y-3">
+                    <label className="block text-base font-medium text-slate-700">How old are you?</label>
                     <Input 
                       type="number" 
                       placeholder="e.g. 21" 
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
                       min="1" max="120"
-                      className="text-2xl py-6 font-medium text-center"
+                      className="text-xl py-5 font-medium text-center rounded-xl"
                       onKeyPress={(e) => {
                         if (e.key === 'Enter' && age) handleNext();
                       }}

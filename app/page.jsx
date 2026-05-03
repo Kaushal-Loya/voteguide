@@ -35,24 +35,24 @@ export default function Home() {
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-200/40 blur-[120px] animate-pulse animation-delay-4000" />
       
       {/* Premium Floating Navigation */}
-      <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl z-[100]">
-        <div className="neo-blur bg-white/70 glass-border py-4 px-8 rounded-[2rem] flex justify-between items-center shadow-neo-glass">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/30">
+      <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-4rem)] max-w-5xl z-[100]">
+        <div className="neo-blur bg-white/70 glass-border py-2.5 px-6 rounded-2xl flex justify-between items-center shadow-neo-glass">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-base shadow-lg shadow-indigo-500/30">
               V
             </div>
-            <h1 className="text-xl font-black text-slate-800 tracking-tighter">VoteGuide AI</h1>
+            <h1 className="text-base font-black text-slate-800 tracking-tighter">VoteGuide AI</h1>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-8 mr-4">
-              <a href="#features" className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors">Features</a>
-              <a href="#about" className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors">How it Works</a>
+          <div className="flex items-center gap-5">
+            <div className="hidden md:flex items-center gap-5 mr-1">
+              <a href="#features" className="text-[10px] font-black text-slate-500 hover:text-indigo-600 transition-colors uppercase tracking-[0.15em]">Features</a>
+              <a href="#about" className="text-[10px] font-black text-slate-500 hover:text-indigo-600 transition-colors uppercase tracking-[0.15em]">How it Works</a>
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:block scale-90">
               <LanguageSelector />
             </div>
             <Link href={session.isLoggedIn ? "/guide" : "/login"}>
-              <Button className="rounded-2xl px-8 h-12 font-bold bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all hover:scale-105 active:scale-95">
+              <Button className="rounded-xl px-5 h-9 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all hover:scale-105 active:scale-95">
                 {session.isLoggedIn ? "Dashboard" : "Get Started"}
               </Button>
             </Link>
@@ -77,17 +77,17 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter mb-10 leading-[0.95]"
+            className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6 leading-[0.95]"
           >
             Your Vote, <br />
-            <span className="text-indigo-600 underline decoration-indigo-200 decoration-8 underline-offset-8">Simplified.</span>
+            <span className="text-indigo-600 underline decoration-indigo-200 decoration-4 underline-offset-4">Simplified.</span>
           </motion.h2>
           
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-14 font-bold leading-relaxed"
+            className="text-base md:text-lg text-slate-500 max-w-xl mx-auto mb-10 font-bold leading-relaxed"
           >
             Navigate the complexity of the electoral process with a personalized, AI-powered roadmap. Transparent, secure, and built for you.
           </motion.p>
@@ -96,15 +96,15 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href={session.isLoggedIn ? "/guide" : "/login"}>
-              <Button size="lg" className="h-20 px-12 text-xl font-black rounded-3xl bg-slate-900 hover:bg-indigo-600 shadow-2xl transition-all group">
+              <Button size="lg" className="h-14 px-8 text-base font-black rounded-xl bg-slate-900 hover:bg-indigo-600 shadow-xl transition-all group">
                 {session.isLoggedIn ? "Enter Dashboard" : "Get Your Guide Now"}
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-20 px-12 text-xl font-black rounded-3xl bg-white/50 backdrop-blur-xl border-slate-200 shadow-lg hover:bg-white">
+            <Button size="lg" variant="outline" className="h-14 px-8 text-base font-black rounded-xl bg-white/50 backdrop-blur-xl border-slate-200 shadow-md hover:bg-white">
               Watch Demo
             </Button>
           </motion.div>
