@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, MapPin, CheckSquare, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import locationData from "../lib/locationData.json";
+import { toast } from "sonner";
 
 export default function Onboarding() {
   const { user, session, updateContext, updateSession } = useUserContext();
@@ -35,9 +36,12 @@ export default function Onboarding() {
         isRegistered,
       });
       updateSession({ isLoggedIn: true });
+      toast.success("Profile Created!", {
+        description: "Welcome to VoteGuide AI. Redirecting to your dashboard...",
+      });
       setTimeout(() => {
         router.push("/guide");
-      }, 1000);
+      }, 1500);
     }
   };
 

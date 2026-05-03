@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 import { useUserContext } from "../context/UserContext";
 
@@ -26,8 +27,12 @@ export default function LanguageSelector() {
     document.cookie = `googtrans=${googleTransValue}; path=/`;
     document.cookie = `googtrans=${googleTransValue}; path=/; domain=${window.location.hostname}`;
     
+    toast.info(`Switching language to ${LANGUAGES.find(l => l.code === newLang)?.name}...`);
+    
     // Refresh to apply translation
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
   };
 
   return (

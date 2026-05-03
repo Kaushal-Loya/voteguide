@@ -3,6 +3,8 @@ import "../styles/globals.css";
 import { UserProvider } from "../context/UserContext";
 import Script from "next/script";
 
+import { Toaster } from "sonner";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -15,7 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen bg-zinc-50 text-zinc-900`} suppressHydrationWarning>
         <UserProvider>
+          <Toaster position="top-center" richColors />
           <div id="google_translate_element" style={{ display: 'none' }}></div>
+
           <Script id="google-translate-init" strategy="afterInteractive">
             {`
               function googleTranslateElementInit() {

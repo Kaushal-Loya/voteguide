@@ -1,59 +1,52 @@
 "use client";
 
 import React, { useState } from "react";
-import { downloadICS } from "../lib/googleCalendar";
+import { downloadMultiEventICS } from "../lib/googleCalendar";
 import { Button } from "./ui/button";
 import { Calendar } from "lucide-react";
+import { toast } from "sonner";
 
 export default function AddReminderButton() {
   const [loading, setLoading] = useState(false);
 
   const handleAddReminders = () => {
-    // Fallback directly to ICS download as OAuth requires active client ID setup
-    // TODO: Replace the API key in .env.local before running.
-    // See README.md > Google Services Used for setup instructions.
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_CLIENT_ID || "YOUR_GOOGLE_CALENDAR_CLIENT_ID_HERE";
+    setLoading(true);
     
     const events = [
       {
         title: "Voter Registration Deadline",
-        description: "Last day to register to vote for the upcoming elections.",
-        date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        description: "Last day to register to vote for the upcoming elections. Check ECI portal.",
+        date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 
       },
       {
         title: "Election Day — Go Vote!",
         description: "Today is election day. Remember to carry your Voter ID (EPIC) to the polling booth.",
-        date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+        date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), 
       }
     ];
 
-    if (clientId === "YOUR_GOOGLE_CALENDAR_CLIENT_ID_HERE") {
-      // Fallback to ICS
-      events.forEach(event => {
-        downloadICS(event.title, event.description, event.date);
+    try {
+      downloadMultiEventICS(events);
+      toast.success("Calendar reminders downloaded!", {
+        description: "Import the .ics file into your Google Calendar or Outlook.",
+        duration: 5000,
       });
-      alert("Calendar credentials not found. Downloading .ics files instead.");
-      return;
+    } catch (error) {
+      toast.error("Failed to generate reminders.");
+    } finally {
+      setLoading(false);
     }
-
-    // In a real OAuth flow, we would redirect to Google's OAuth 2.0 endpoint here
-    // e.g. window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}...`;
-    // For this demonstration, we'll download ICS as the immediate fallback
-    events.forEach(event => {
-      downloadICS(event.title, event.description, event.date);
-    });
-    alert("Downloaded calendar reminders!");
   };
 
   return (
     <Button 
       onClick={handleAddReminders} 
       disabled={loading}
-      className="flex items-center gap-2"
+      className="rounded-2xl px-6 h-12 font-bold bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all active:scale-95 flex items-center gap-2"
       aria-label="Add Election Reminders to Calendar"
     >
-      <Calendar className="w-4 h-4" />
-      {loading ? "Adding..." : "Add Reminders"}
+      <Calendar className="w-5 h-5" />
+      {loading ? "Preparing..." : "Add Reminders"}
     </Button>
   );
 }
