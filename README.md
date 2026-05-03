@@ -17,6 +17,14 @@ The platform utilizes a **Contextual Decision Engine** that analyzes user demogr
 - **Dynamic Context Injection:** The user's specific profile is injected into the AI's system instructions, ensuring that every piece of advice is legally and geographically accurate to the user's district.
 - **Persistence First:** We prioritize a "login-less" but persistent experience by synchronizing the user's profile with localized storage, ensuring they can resume their voting journey at any time.
 
+### 🧠 The Adaptive Context Engine
+VoteGuide AI isn't just a website; it's a dynamic guide that reacts to who you are.
+- **Active Context Card**: The dashboard features an "Active Context" indicator that shows your current AI-assigned persona (e.g., "Journey: Polling Day Logistics").
+- **Dynamic Content Shifting**: 
+    - **AI Assistant**: The Gemini API receives your background profile, allowing it to provide personalized registration steps or booth requirements.
+    - **UI Adaptation**: Sections like "Find Booth" are automatically hidden or unlocked based on your eligibility and registration status.
+    - **Localized Roadmaps**: Timeline events change priority based on your specific district and registration phase.
+
 ### 3. How the Solution Works
 1. **Intelligent Onboarding:** Users configure their voting profile (Age, State, District). This data is stored locally to maintain privacy while enabling personalization.
 2. **Dashboard Generation:** Based on the profile, the dashboard activates specific modules:
@@ -43,6 +51,7 @@ The platform utilizes a **Contextual Decision Engine** that analyzes user demogr
 | **Styling** | Tailwind CSS | Utility-first CSS for a premium "GovTech Glassmorphism" design. |
 | **Animations** | Framer Motion | Powering premium micro-animations and smooth transitions. |
 | **Persistence** | LocalStorage API | Ensuring session-awareness and user profile retention. |
+| **Notifications** | Sonner | Premium, animated toast notifications for system feedback. |
 | **Components** | Radix UI / Shadcn | Accessible, high-quality primitive components. |
 
 ---
