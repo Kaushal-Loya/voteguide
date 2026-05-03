@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { getGoogleMapsLoader } from "../lib/googleMaps";
+import { loadGoogleMaps } from "../lib/googleMaps";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MapPin } from "lucide-react";
 
@@ -19,12 +19,11 @@ export default function PollingBoothMap({ district, state }) {
 
     const initMap = async () => {
       try {
-        const loader = getGoogleMapsLoader();
-        await loader.load();
+        const importLibrary = loadGoogleMaps();
         
-        const { Map } = await window.google.maps.importLibrary("maps");
-        const { PlacesService } = await window.google.maps.importLibrary("places");
-        const { Geocoder } = await window.google.maps.importLibrary("geocoding");
+        const { Map } = await importLibrary("maps");
+        const { PlacesService } = await importLibrary("places");
+        const { Geocoder } = await importLibrary("geocoding");
 
         const geocoder = new Geocoder();
         const address = `${district}, ${state}, India`;
@@ -47,12 +46,15 @@ export default function PollingBoothMap({ district, state }) {
 
             const service = new PlacesService(map);
             service.textSearch(request, (places, searchStatus) => {
-              if (searchStatus === window.google.maps.places.PlacesServiceStatus.OK && places) {
+              // The new Places API sometimes uses window.google.maps.places.PlacesServiceStatus.OK 
+              // but we can just check if places is returned and status is "OK"
+              if (searchStatus === "OK" && places) {
                 // Show nearest 3
                 const topPlaces = places.slice(0, 3);
                 
-                topPlaces.forEach((place) => {
-                  new window.google.maps.Marker({
+                topPlaces.forEach(async (place) => {
+                  const { Marker } = await importLibrary("marker");
+                  new Marker({
                     map,
                     position: place.geometry.location,
                     title: place.name,
@@ -77,25 +79,33 @@ export default function PollingBoothMap({ district, state }) {
   }, [district, state]);
 
   return (
-    <Card className="w-full shadow-lg overflow-hidden border-zinc-200">
-      <CardHeader className="bg-zinc-50 border-b border-zinc-100">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-blue-600" />
+    <Card className="w-full bg-white/60 backdrop-blur-xl border-white/40 shadow-glass rounded-3xl overflow-hidden">
+      <CardHeader className="bg-gradient-to-r from-blue-500 to-indigo-600 p-8">
+        <CardTitle className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+          <MapPin className="w-8 h-8 text-white" />
           Find Your Polling Booth
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
-        {loading && <div className="p-8 text-center text-zinc-500 animate-pulse">Loading map...</div>}
+      <CardContent className="p-0 overflow-hidden">
+        {loading && (
+          <div className="p-12 text-center text-slate-600 font-bold text-xl flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-indigo-600/30 border-t-indigo-600 rounded-full animate-spin"></div>
+            Searching for booths...
+          </div>
+        )}
         {error ? (
-          <div className="p-8 text-center">
-            <div className="text-red-500 mb-2">{error}</div>
-            <div className="font-semibold text-lg">Polling booths for {district}, {state}</div>
-            <p className="text-sm text-zinc-600 mt-2">
-              Please check your state's Chief Electoral Officer (CEO) website or the NVSP portal to find your exact polling location.
-            </p>
+          <div className="p-12 text-center relative overflow-hidden">
+             <div className="absolute inset-0 bg-mesh-indigo opacity-20 pointer-events-none"></div>
+             <div className="relative z-10">
+              <div className="text-slate-800 font-bold text-xl mb-6 bg-white/80 backdrop-blur-md border border-white/40 rounded-2xl p-6 shadow-glass-sm max-w-2xl mx-auto">{error}</div>
+              <div className="font-bold text-2xl text-slate-800 tracking-tight mt-8">Polling booths for {district}, {state}</div>
+              <p className="text-lg font-medium text-slate-600 mt-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-white/40 shadow-sm max-w-2xl mx-auto">
+                Please check your state&apos;s Chief Electoral Officer (CEO) website or the NVSP portal to find your exact polling location.
+              </p>
+            </div>
           </div>
         ) : (
-          <div ref={mapRef} style={{ width: "100%", height: "400px" }} />
+          <div ref={mapRef} className="w-full h-[500px]" />
         )}
       </CardContent>
     </Card>

@@ -5,15 +5,16 @@ import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area"
 
 import { cn } from "@/lib/utils"
 
-function ScrollArea({
+const ScrollArea = React.forwardRef(({
   className,
   children,
   ...props
-}) {
+}, ref) => {
   return (
     <ScrollAreaPrimitive.Root data-slot="scroll-area" className={cn("relative", className)} {...props}>
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
+        ref={ref}
         className="size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1">
         {children}
       </ScrollAreaPrimitive.Viewport>
@@ -21,18 +22,20 @@ function ScrollArea({
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
   );
-}
+})
+ScrollArea.displayName = "ScrollArea"
 
-function ScrollBar({
+const ScrollBar = React.forwardRef(({
   className,
   orientation = "vertical",
   ...props
-}) {
+}, ref) => {
   return (
     <ScrollAreaPrimitive.Scrollbar
       data-slot="scroll-area-scrollbar"
       data-orientation={orientation}
       orientation={orientation}
+      ref={ref}
       className={cn(
         "flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
         className
@@ -43,6 +46,7 @@ function ScrollBar({
         className="relative flex-1 rounded-full bg-border" />
     </ScrollAreaPrimitive.Scrollbar>
   );
-}
+})
+ScrollBar.displayName = "ScrollBar"
 
 export { ScrollArea, ScrollBar }

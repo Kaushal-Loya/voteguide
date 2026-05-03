@@ -5,17 +5,44 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState({
+  const defaultUser = {
     age: null,
     location: { state: "", district: "" },
     isRegistered: null,
     language: "en",
-  });
+  };
 
-  const [session, setSession] = useState({
+  const defaultSession = {
     currentStep: 0,
     completedSteps: [],
-  });
+    isLoggedIn: false,
+  };
+
+  const [user, setUser] = useState(defaultUser);
+  const [session, setSession] = useState(defaultSession);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initial load
+  useEffect(() => {
+    const savedUser = localStorage.getItem("voteguide_user");
+    const savedSession = localStorage.getItem("voteguide_session");
+    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedSession) setSession(JSON.parse(savedSession));
+    setIsInitialized(true);
+  }, []);
+
+  // Save to localStorage whenever state changes, but ONLY after initialization
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("voteguide_user", JSON.stringify(user));
+    }
+  }, [user, isInitialized]);
+
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("voteguide_session", JSON.stringify(session));
+    }
+  }, [session, isInitialized]);
 
   const updateContext = (newData) => {
     setUser((prev) => ({ ...prev, ...newData }));
@@ -27,7 +54,7 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, session, updateContext, updateSession }}
+      value={{ user, session, updateContext, updateSession, isInitialized }}
     >
       {children}
     </UserContext.Provider>

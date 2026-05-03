@@ -23,7 +23,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -32,6 +32,37 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground font-sans bg-slate-50;
+    background-attachment: fixed;
   }
 }
+
+/* Basic Markdown Styles */
+.prose {
+  @apply text-slate-700 leading-relaxed;
+}
+.prose p {
+  @apply mb-4 last:mb-0;
+}
+.prose strong {
+  @apply font-bold text-slate-900;
+}
+.prose ul, .prose ol {
+  @apply my-4 pl-6 space-y-2;
+}
+.prose ul {
+  @apply list-disc;
+}
+.prose ol {
+  @apply list-decimal;
+}
+.prose li {
+  @apply pl-1;
+}
+.prose h1, .prose h2, .prose h3 {
+  @apply font-bold text-slate-900 mt-6 mb-4;
+}
+.prose h1 { @apply text-2xl; }
+.prose h2 { @apply text-xl; }
+.prose h3 { @apply text-lg; }
+
