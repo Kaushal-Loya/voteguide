@@ -127,7 +127,7 @@ export default function Home() {
           <div className="text-center mb-20">
             <h2 className="text-4xl font-bold text-slate-900 tracking-tight mb-4">Everything You Need to Vote</h2>
             <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-              We've simplified the complexities of the election process into easy-to-follow steps.
+              We&apos;ve simplified the complexities of the election process into easy-to-follow steps.
             </p>
           </div>
           
@@ -185,7 +185,7 @@ export default function Home() {
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
                <ShieldCheck className="w-12 h-12 mb-6" />
                <p className="text-xl font-medium leading-relaxed italic">
-                 "Our mission is to strengthen democracy by making election information accessible, transparent, and easy to understand for every citizen."
+                 &quot;Our mission is to strengthen democracy by making election information accessible, transparent, and easy to understand for every citizen.&quot;
                </p>
             </div>
           </div>

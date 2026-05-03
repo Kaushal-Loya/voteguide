@@ -176,8 +176,8 @@ export default function GuidePage() {
                         <div>
                           <h3 className="text-2xl font-bold text-slate-800">Welcome Back!</h3>
                           <p className="text-slate-600 mt-2 font-medium">
-                            {routeDecision === "ineligible" && `You are ${user.age} years old. While you can't vote yet, I can help you learn the process!`}
-                            {routeDecision === "register" && "You are eligible to vote! Let's get you registered."}
+                            {routeDecision === "ineligible" && `You are ${user.age} years old. While you can&apos;t vote yet, I can help you learn the process!`}
+                            {routeDecision === "register" && "You are eligible to vote! Let&apos;s get you registered."}
                             {routeDecision === "polling" && "You are all set! I can help you find your booth or explain the EVM."}
                           </p>
                         </div>
