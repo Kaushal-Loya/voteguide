@@ -66,3 +66,49 @@
 .prose h2 { @apply text-xl; }
 .prose h3 { @apply text-lg; }
 
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-300/50 rounded-full hover:bg-indigo-300 transition-colors;
+}
+
+/* Unique Design Utilities */
+.shadow-neo-glass {
+  box-shadow: 
+    0 10px 30px -10px rgba(79, 70, 229, 0.15),
+    0 0 1px 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+.neo-blur {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-border {
+  @apply border border-white/40;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+

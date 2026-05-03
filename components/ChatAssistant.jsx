@@ -67,24 +67,24 @@ export default function ChatAssistant() {
   };
 
   return (
-    <Card className="flex flex-col h-[650px] w-full bg-white/60 backdrop-blur-xl border-white/40 shadow-glass rounded-3xl overflow-hidden transition-all duration-300">
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6 font-bold tracking-tight text-xl flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse shadow-sm shadow-emerald-400/50"></div>
-          VoteGuide AI Assistant
+    <Card className="flex flex-col h-[700px] w-full bg-white/70 neo-blur glass-border shadow-neo-glass rounded-[2rem] overflow-hidden transition-all duration-500">
+      <div className="bg-slate-900 text-white p-8 font-black tracking-tighter text-2xl flex items-center justify-between shadow-2xl">
+        <div className="flex items-center gap-4">
+          <div className="w-4 h-4 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_15px_rgba(52,211,153,0.5)]"></div>
+          VoteGuide AI
         </div>
-        <div className="text-xs font-medium bg-white/20 px-3 py-1 rounded-full backdrop-blur-md">Online</div>
+        <div className="text-[10px] uppercase tracking-widest font-black bg-white/10 px-4 py-1.5 rounded-full border border-white/10">Active Session</div>
       </div>
       
-      <ScrollArea className="flex-1 p-6 overflow-y-auto" ref={scrollRef}>
-        <div className="flex flex-col gap-6">
+      <ScrollArea className="flex-1 p-8 overflow-y-auto custom-scrollbar" ref={scrollRef}>
+        <div className="flex flex-col gap-8">
           {messages.map((msg, idx) => (
             <div
               key={idx}
-              className={`max-w-[85%] p-5 rounded-2xl text-lg font-medium shadow-sm transition-all duration-300 ${
+              className={`max-w-[85%] p-6 rounded-3xl text-lg font-bold shadow-sm transition-all duration-500 ${
                 msg.role === "user"
-                  ? "bg-gradient-to-tr from-blue-600 to-indigo-600 text-white self-end rounded-tr-none shadow-indigo-200"
-                  : "bg-white/80 backdrop-blur-sm text-slate-800 self-start border border-white/40 rounded-tl-none"
+                  ? "bg-slate-900 text-white self-end rounded-tr-none shadow-xl shadow-slate-200"
+                  : "bg-white glass-border text-slate-800 self-start rounded-tl-none shadow-sm"
               }`}
             >
               <div className="prose prose-slate max-w-none dark:prose-invert leading-relaxed">
@@ -95,11 +95,11 @@ export default function ChatAssistant() {
             </div>
           ))}
           {isLoading && (
-            <div className="bg-white/40 backdrop-blur-sm border border-white/40 text-slate-500 font-medium self-start p-5 rounded-2xl rounded-tl-none animate-pulse flex items-center gap-3">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75"></div>
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></div>
+            <div className="bg-indigo-50/50 backdrop-blur-sm border border-indigo-100 text-indigo-600 font-bold self-start p-6 rounded-3xl rounded-tl-none animate-pulse flex items-center gap-3">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 bg-indigo-400 rounded-full animate-bounce"></div>
+                <div className="w-2.5 h-2.5 bg-indigo-400 rounded-full animate-bounce delay-100"></div>
+                <div className="w-2.5 h-2.5 bg-indigo-400 rounded-full animate-bounce delay-200"></div>
               </div>
               Thinking...
             </div>
@@ -107,29 +107,29 @@ export default function ChatAssistant() {
         </div>
       </ScrollArea>
 
-      <div className="p-6 bg-slate-50/50 backdrop-blur-md border-t border-zinc-200/50">
-        <div className="flex flex-wrap gap-2 mb-6">
+      <div className="p-8 bg-white/50 border-t border-white/40">
+        <div className="flex flex-wrap gap-3 mb-8">
           {quickReplies.map((reply, idx) => (
             <button
               key={idx}
               onClick={() => sendMessage(reply)}
-              className="text-sm font-medium bg-white border border-zinc-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700 py-2.5 px-4 rounded-xl transition-all shadow-sm active:scale-95"
+              className="text-xs font-black uppercase tracking-wider bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 text-slate-500 hover:text-indigo-600 py-3 px-5 rounded-2xl transition-all shadow-sm active:scale-95"
             >
               {reply}
             </button>
           ))}
         </div>
         
-        <div className="flex gap-3">
+        <div className="flex gap-4">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me anything..."
+            placeholder="Type your question..."
             aria-label="Chat input"
-            className="flex-1 font-medium text-lg h-14 bg-white/80"
+            className="flex-1 font-bold text-lg h-16 bg-white rounded-2xl border-slate-200 focus:ring-slate-900 shadow-sm"
           />
-          <Button onClick={() => sendMessage(input)} disabled={isLoading || !input.trim()} aria-label="Send" className="h-14 px-8 rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200">
+          <Button onClick={() => sendMessage(input)} disabled={isLoading || !input.trim()} aria-label="Send" className="h-16 px-10 rounded-2xl bg-slate-900 hover:bg-indigo-600 shadow-xl transition-all">
             <Send className="w-6 h-6" />
           </Button>
         </div>

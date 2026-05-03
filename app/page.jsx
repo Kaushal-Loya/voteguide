@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useUserContext } from "../context/UserContext";
 import LanguageSelector from "../components/LanguageSelector";
 import { motion } from "framer-motion";
-import { ArrowRight, Bot, MapPin, Calendar, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Bot, MapPin, Calendar, CheckCircle2, ShieldCheck, Zap, Sparkles } from "lucide-react";
 import { Button } from "../components/ui/button";
 
 const FeatureCard = ({ icon: Icon, title, description, delay }) => (
@@ -13,13 +13,13 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay }}
     viewport={{ once: true }}
-    className="p-8 rounded-3xl bg-white/60 backdrop-blur-xl border border-white/40 shadow-glass hover:shadow-indigo-100/50 transition-all group"
+    className="p-10 rounded-[2.5rem] neo-blur bg-white/60 glass-border shadow-neo-glass hover:shadow-indigo-200/50 transition-all group flex flex-col items-center text-center"
   >
-    <div className="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-      <Icon className="w-7 h-7 text-indigo-600" />
+    <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-50 to-blue-50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-sm border border-indigo-100">
+      <Icon className="w-8 h-8 text-indigo-600" />
     </div>
-    <h3 className="text-xl font-bold text-slate-800 mb-3">{title}</h3>
-    <p className="text-slate-600 leading-relaxed font-medium">
+    <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">{title}</h3>
+    <p className="text-slate-600 leading-relaxed font-bold">
       {description}
     </p>
   </motion.div>
@@ -29,182 +29,189 @@ export default function Home() {
   const { session } = useUserContext();
 
   return (
-    <main className="min-h-screen bg-slate-50 relative overflow-hidden font-sans">
-      {/* Background elements */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-100/50 blur-[120px] animate-blob" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-100/50 blur-[120px] animate-blob animation-delay-4000" />
+    <main className="min-h-screen bg-[#f8fafc] relative overflow-hidden font-sans bg-dot-pattern">
+      {/* Background Blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-200/40 blur-[120px] animate-pulse" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-200/40 blur-[120px] animate-pulse animation-delay-4000" />
       
-      <header className="w-full bg-white/70 backdrop-blur-xl border-b border-zinc-200/50 py-4 px-6 flex justify-between items-center shadow-sm z-50 sticky top-0">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-indigo-500/30">
-            V
+      {/* Premium Floating Navigation */}
+      <nav className="fixed top-8 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl z-[100]">
+        <div className="neo-blur bg-white/70 glass-border py-4 px-8 rounded-[2rem] flex justify-between items-center shadow-neo-glass">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/30">
+              V
+            </div>
+            <h1 className="text-xl font-black text-slate-800 tracking-tighter">VoteGuide AI</h1>
           </div>
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">VoteGuide AI</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:block rounded-2xl bg-white/50 backdrop-blur-sm border border-zinc-200 shadow-sm">
-            <LanguageSelector />
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-8 mr-4">
+              <a href="#features" className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors">Features</a>
+              <a href="#about" className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors">How it Works</a>
+            </div>
+            <div className="hidden md:block">
+              <LanguageSelector />
+            </div>
+            <Link href={session.isLoggedIn ? "/guide" : "/login"}>
+              <Button className="rounded-2xl px-8 h-12 font-bold bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200 transition-all hover:scale-105 active:scale-95">
+                {session.isLoggedIn ? "Dashboard" : "Get Started"}
+              </Button>
+            </Link>
           </div>
-          <Link href={session.isLoggedIn ? "/guide" : "/login"}>
-            <Button className="rounded-full px-6 bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200">
-              {session.isLoggedIn ? "My Dashboard" : "Get Started"}
-            </Button>
-          </Link>
         </div>
-      </header>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-6 overflow-hidden">
+      <section className="relative pt-48 pb-32 px-6">
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-sm font-bold mb-8 shadow-sm"
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/50 backdrop-blur-md glass-border text-indigo-700 text-xs font-black tracking-widest uppercase mb-10 shadow-sm"
           >
-            <Zap className="w-4 h-4 fill-indigo-700" />
-            AI-POWERED ELECTION EDUCATION
+            <Sparkles className="w-4 h-4" />
+            Empowering the Indian Voter
           </motion.div>
           
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight mb-8 leading-[1.1]"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-6xl md:text-8xl font-black text-slate-900 tracking-tighter mb-10 leading-[0.95]"
           >
-            Navigate Elections with <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-              Confidence and Clarity.
-            </span>
+            Your Vote, <br />
+            <span className="text-indigo-600 underline decoration-indigo-200 decoration-8 underline-offset-8">Simplified.</span>
           </motion.h2>
           
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-12 font-medium leading-relaxed"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto mb-14 font-bold leading-relaxed"
           >
-            Your personalized guide to the Indian electoral process. From registration to the polling booth, VoteGuide AI is here to answer all your questions.
+            Navigate the complexity of the electoral process with a personalized, AI-powered roadmap. Transparent, secure, and built for you.
           </motion.p>
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
             <Link href={session.isLoggedIn ? "/guide" : "/login"}>
-              <Button size="lg" className="h-16 px-10 text-lg rounded-2xl bg-indigo-600 hover:bg-indigo-700 shadow-xl shadow-indigo-200 group">
-                {session.isLoggedIn ? "Go to Dashboard" : "Get My Voter Guide"}
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Button size="lg" className="h-20 px-12 text-xl font-black rounded-3xl bg-slate-900 hover:bg-indigo-600 shadow-2xl transition-all group">
+                {session.isLoggedIn ? "Enter Dashboard" : "Get Your Guide Now"}
+                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-16 px-10 text-lg rounded-2xl bg-white/50 backdrop-blur-xl border-slate-200">
+            <Button size="lg" variant="outline" className="h-20 px-12 text-xl font-black rounded-3xl bg-white/50 backdrop-blur-xl border-slate-200 shadow-lg hover:bg-white">
               Watch Demo
             </Button>
           </motion.div>
         </div>
 
-        {/* Abstract Floating UI elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-40">
-           {/* Mockup glass cards */}
-           <motion.div 
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[20%] left-[5%] w-64 h-32 rounded-3xl bg-white/40 backdrop-blur-lg border border-white/40 shadow-glass hidden lg:block"
-           />
-           <motion.div 
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[20%] right-[5%] w-72 h-40 rounded-3xl bg-white/40 backdrop-blur-lg border border-white/40 shadow-glass hidden lg:block"
-           />
+        {/* Floating Interactive Elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute top-[10%] right-[15%] w-48 h-48 border-[20px] border-indigo-100 rounded-full"
+            />
+            <motion.div 
+              animate={{ y: [0, 40, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-[10%] left-[10%] w-32 h-32 bg-blue-100/50 rounded-[2rem] rotate-12"
+            />
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 px-6 relative">
+      <section id="features" className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold text-slate-900 tracking-tight mb-4">Everything You Need to Vote</h2>
-            <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
-              We&apos;ve simplified the complexities of the election process into easy-to-follow steps.
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-5xl font-black text-slate-900 tracking-tighter mb-6 leading-tight">Civic intelligence, <br />redefined for 2024.</h2>
+              <p className="text-xl text-slate-500 font-bold">
+                Everything you need to participate in the democratic process, powered by Google Cloud technology.
+              </p>
+            </div>
+            <div className="flex gap-4">
+              <div className="w-12 h-12 rounded-full border-2 border-indigo-200 flex items-center justify-center text-indigo-300 font-black">01</div>
+              <div className="w-12 h-12 rounded-full border-2 border-indigo-600 flex items-center justify-center text-indigo-600 font-black">02</div>
+            </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <FeatureCard 
               icon={Bot}
-              title="AI Assistant"
-              description="24/7 personalized chat support to answer your queries about voting rules, eligibility, and ID requirements."
+              title="Gemini AI"
+              description="Personalized guidance that understands your constituency, age, and voting requirements."
               delay={0.1}
             />
             <FeatureCard 
               icon={MapPin}
-              title="Booth Finder"
-              description="Instantly locate your designated polling station within your constituency using integrated maps."
+              title="Booth Map"
+              description="Real-time polling booth discovery using Google Maps, tailored to your exact district."
               delay={0.2}
             />
             <FeatureCard 
               icon={Calendar}
-              title="Election Timeline"
-              description="A step-by-step checklist tailored to your registration status, ensuring you're ready for election day."
+              title="Live Tracker"
+              description="Never miss a deadline. Automatic registration reminders and election day countdowns."
               delay={0.3}
             />
           </div>
         </div>
       </section>
 
-      {/* Trust/Info Section */}
-      <section className="py-24 px-6 relative bg-white/30">
-        <div className="max-w-5xl mx-auto rounded-[3rem] p-12 md:p-20 bg-gradient-to-br from-indigo-600 to-blue-700 text-white relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Designed for Every Voter</h2>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 font-medium">
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4" />
+      {/* Unique Trust Island */}
+      <section id="about" className="py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+           <div className="neo-blur bg-slate-900/95 rounded-[4rem] p-16 md:p-24 text-white relative overflow-hidden shadow-neo-glass">
+              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-500/20 blur-[150px] -mr-96 -mt-96" />
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div>
+                  <h2 className="text-5xl font-black mb-8 tracking-tighter leading-tight">Privacy by Design. <br />Trust by Default.</h2>
+                  <div className="space-y-6">
+                    {[
+                      { icon: ShieldCheck, text: "Zero Server-Side Storage of PII" },
+                      { icon: Sparkles, text: "Real-time Google Translation support" },
+                      { icon: Zap, text: "Official ECI Verified Content" }
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                        <item.icon className="w-8 h-8 text-indigo-400" />
+                        <span className="text-xl font-bold">{item.text}</span>
+                      </div>
+                    ))}
                   </div>
-                  No personal data stored on servers
-                </li>
-                <li className="flex items-center gap-3 font-medium">
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div className="relative">
+                  <div className="aspect-square rounded-[3rem] bg-indigo-600/20 border border-white/20 flex flex-col items-center justify-center p-12 text-center group">
+                    <Bot className="w-24 h-24 mb-10 text-indigo-400 group-hover:scale-110 transition-transform duration-500" />
+                    <p className="text-2xl font-bold leading-relaxed italic">
+                      &quot;Our mission is to strengthen democracy by making election information accessible, transparent, and easy to understand for every citizen.&quot;
+                    </p>
+                    <div className="mt-10 h-1 w-20 bg-indigo-500 rounded-full" />
                   </div>
-                  Multilingual support for all regions
-                </li>
-                <li className="flex items-center gap-3 font-medium">
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4" />
-                  </div>
-                  Official ECI rules integrated
-                </li>
-              </ul>
-            </div>
-            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-               <ShieldCheck className="w-12 h-12 mb-6" />
-               <p className="text-xl font-medium leading-relaxed italic">
-                 &quot;Our mission is to strengthen democracy by making election information accessible, transparent, and easy to understand for every citizen.&quot;
-               </p>
-            </div>
-          </div>
+                </div>
+              </div>
+           </div>
         </div>
       </section>
 
-      <footer className="py-20 border-t border-zinc-200/50 text-center relative z-10">
+      <footer className="py-24 border-t border-zinc-200/50 text-center relative z-10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold">V</div>
-            <span className="text-xl font-bold text-slate-800">VoteGuide AI</span>
+          <div className="flex flex-col items-center gap-6 mb-12">
+            <div className="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-2xl shadow-xl shadow-indigo-500/20">V</div>
+            <span className="text-3xl font-black text-slate-900 tracking-tighter">VoteGuide AI</span>
           </div>
-          <p className="text-slate-500 font-medium mb-8">
-            Built with ❤️ for Hack2Skill Virtual PromptWars
+          <p className="text-slate-500 font-bold mb-12 text-lg">
+            Built with ❤️ for the world&apos;s largest democracy.
           </p>
-          <div className="flex justify-center gap-8 text-sm font-bold text-slate-400 uppercase tracking-widest">
-            <a href="#" className="hover:text-indigo-600 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-indigo-600 transition-colors">Terms</a>
+          <div className="flex flex-wrap justify-center gap-10 text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
             <a href="#" className="hover:text-indigo-600 transition-colors">ECI Portal</a>
+            <a href="#" className="hover:text-indigo-600 transition-colors">Security</a>
+            <a href="#" className="hover:text-indigo-600 transition-colors">Multilingual</a>
           </div>
         </div>
       </footer>
